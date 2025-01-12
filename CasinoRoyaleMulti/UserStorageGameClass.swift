@@ -1,8 +1,8 @@
 //
 //  UserStorageGameClass.swift
-//  JackKas
+//  CasinoRoyaleMulti
 //
-//  Created by Kole Jukisr on 29/11/2024.
+//  Created by Jack Betha on 31/12/2024.
 //
 
 import Foundation
@@ -13,7 +13,8 @@ import AVFoundation
 final class UserStorageGameClass: ObservableObject {
     static var shared: UserStorageGameClass = UserStorageGameClass()
     
-    @Published var loadingGoing: Bool = true 
+    
+    @Published var loadingGoing: Bool = true
     @AppStorage("currentExperience") internal var currentExperince: Double = 0 {
         didSet {
             if self.currentExperince >= 2000 {
@@ -63,7 +64,7 @@ final class UserStorageGameClass: ObservableObject {
         handleButtonPress()
     }
     func playSound() {
-        if let url = Bundle.main.url(forResource: "jazzBg", withExtension: "mp3") {
+        if let url = Bundle.main.url(forResource: "jazz", withExtension: "wav") {
             do {
                 audioPlayer = try AVAudioPlayer(contentsOf: url)
                 audioPlayer?.volume = Float(self.soundVolume)
@@ -167,6 +168,13 @@ final class UserStorageGameClass: ObservableObject {
                     self.goldTimer?.cancel()
                 }
             }
+    }
+    func viewDestination() -> AnyView  {
+        if UserDefaults.standard.value(forKey: "passed") != nil {
+           return AnyView(MainMenu())
+        } else {
+           return AnyView(SetUpProfileView())
+        }
     }
 }
 import SwiftUI

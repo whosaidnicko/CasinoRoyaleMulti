@@ -1,18 +1,19 @@
 //
 //  SettingsView.swift
-//  JackKas
+//  CasinoRoyaleMulti
 //
-//  Created by Kole Jukisr on 29/11/2024.
+//  Created by Jack Betha on 31/12/2024.
 //
 
 import Foundation
 import SwiftUI
+import StoreKit
 
 struct SettingsView: View {
     @StateObject private var userStorage: UserStorageGameClass = UserStorageGameClass.shared
     var body: some View {
         ZStack {
-            Image("bg")
+            Image("bgRed")
                 .resizable()
                 .ignoresSafeArea()
             
@@ -25,21 +26,15 @@ struct SettingsView: View {
                             }
                         }
                     } label: {
-                        Image("squareS")
-                            .resizable()
-                            .frame(width: 45, height: 45)
-                            .overlay {
+                     
                                  Text("-")
                                     .font(.custom(Font.lalezar, size: 25))
                                     .foregroundStyle(.white)
-                            }
+                            
                     }
                     .buttonStyle(CustomStyle())
 
-                    Image("achievemenTlebl")
-                        .resizable()
-                        .frame(width: 141, height: 77)
-                        .overlay {
+                  
                             VStack() {
                                 Text("Sounds")
                                     .font(.custom(Font.lalezar, size: 17))
@@ -50,7 +45,7 @@ struct SettingsView: View {
                                     .fill(LinearGradient(colors: [Color.init(hex: "#3F56F0"), Color.init(hex: "#00EFA9")], startPoint: .topLeading, endPoint: .bottomTrailing))
                                     .frame(width: 102 , height: 11)
                             }
-                        }
+                        
                     
                     Button {
                         if self.userStorage.soundVolume != 1 {
@@ -59,25 +54,32 @@ struct SettingsView: View {
                             }
                         }
                     } label: {
-                        Image("squareS")
-                            .resizable()
-                            .frame(width: 45, height: 45)
-                            .overlay {
                                  Text("+")
                                     .font(.custom(Font.lalezar, size: 25))
                                     .foregroundStyle(.white)
-                            }
+                            
                     }
                     .buttonStyle(CustomStyle())
                 }
           
-
-            
+                Button {
+                    if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                        SKStoreReviewController.requestReview(in: windowScene)
+                    }
+                
+                } label: {
+                    Image("menuLeibl")
+                        .overlay {
+                            Text("Rate Us")
+                                .font(.custom(Font.lalezar, size: 30))
+                                .foregroundStyle(.white)
+                        }
+                }
             }
         }
         .navigationBarBackButtonHidden()
         .navigationBarItems(trailing: GoldView())
-        .navigationBarItems(leading: BacklBtn())
+        .navigationBarItems(leading: NazadKnopocika())
     }
 }
 

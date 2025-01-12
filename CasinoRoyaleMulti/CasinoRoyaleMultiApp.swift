@@ -2,7 +2,7 @@
 //  CasinoRoyaleMultiApp.swift
 //  CasinoRoyaleMulti
 //
-//  Created by Nicolae Chivriga on 31/12/2024.
+//  Created by Jack Betha on 31/12/2024.
 //
 
 import SwiftUI
@@ -13,8 +13,9 @@ struct CasinoRoyaleMultiApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                LoadingViewCard()
+                RasstaviKartociki()
             }
+            .navigationViewStyle(StackNavigationViewStyle())
         }
     }
 }

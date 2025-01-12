@@ -1,8 +1,8 @@
 //
 //  MoneyAlert.swift
-//  JackKas
+//  CasinoRoyaleMulti
 //
-//  Created by Kole Jukisr on 29/11/2024.
+//  Created by Jack Betha on 31/12/2024..
 //
 
 import Foundation
@@ -44,10 +44,7 @@ struct MoneyAlert: View {
                             }
                         }
                     }, label: {
-                        Image("settingsLeibl")
-                            .resizable()
-                            .frame(width: 175, height: 42)
-                            .overlay {
+                     
                                 HStack {
                                     Text(self.storageUser.moneyIsDisable ? self.storageUser.goldRemainingTimer : "Claim")
                                         .font(.custom(Font.lalezar, size: 15))
@@ -62,7 +59,7 @@ struct MoneyAlert: View {
                                             .resizable()
                                             .frame(width: 33, height: 27)
                                     }
-                                }
+                                
                             }
                     })
                     .buttonStyle(CustomStyle())

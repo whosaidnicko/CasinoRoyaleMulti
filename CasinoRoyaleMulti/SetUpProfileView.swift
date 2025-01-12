@@ -1,8 +1,8 @@
 //
 //  SetUpProfileView.swift
-//  JackKas
+//  CasinoRoyaleMulti
 //
-//  Created by Kole Jukisr on 29/11/2024.
+//  Created by Jack Betha on 31/12/2024.
 //
 
 import Foundation
@@ -19,7 +19,7 @@ struct SetUpProfileView: View {
     ]
     var body: some View {
         ZStack {
-            Image("bg")
+            Image("bgRed")
                 .resizable()
                 .ignoresSafeArea()
             
@@ -31,9 +31,9 @@ struct SetUpProfileView: View {
                             LazyVGrid(columns: columns) {
                                 ForEach(self.userStorage.logos.indices, id: \.self) { index in
                                     Image(self.userStorage.logos[index])
-                                        .offset(y: self.userStorage.selectedLogo == self.userStorage.logos[index] ? 250 : 0)
+                                        
                                         .rotationEffect(.degrees(self.userStorage.selectedLogo == self.userStorage.logos[index] ? 360 : 0))
-                                        .scaleEffect(self.userStorage.selectedLogo == self.userStorage.logos[index] ? 1.2 : 1)
+                                        .scaleEffect(self.userStorage.selectedLogo == self.userStorage.logos[index] ? 1.13 : 1)
                                         .animation(.easeInOut(duration: 2), value: self.userStorage.selectedLogo)
                                         .onTapGesture {
                                             self.userStorage.selectedLogo = self.userStorage.logos[index]
@@ -91,6 +91,7 @@ struct SetUpProfileView: View {
                            value: self.userStorage.selectedLogo)
                 .padding(.bottom)
             }
+            .padding(.top, 70)
         }
 
         .navigationBarBackButtonHidden()

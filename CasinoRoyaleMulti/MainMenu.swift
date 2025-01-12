@@ -2,7 +2,7 @@
 //  MenuJkView.swift
 //  JackKas
 //
-//  Created by Kole Jukisr on 29/11/2024.
+//  Created by Jack Betha on 31/12/2024.
 //
 
 import Foundation
@@ -12,9 +12,9 @@ struct MainMenu: View {
     @State var rotation: Double = 0
     @State var showTradeEnergy: Bool = false
     @State var timer: Timer?
-    @AppStorage("newPlayer") var newPlayer: Bool = false
+    
     @StateObject private var userStorage: UserStorageGameClass = UserStorageGameClass.shared
-    @State var showAchievments: Bool = false
+    
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -22,33 +22,29 @@ struct MainMenu: View {
         ]
     var body: some View {
         ZStack {
-            Image("bg")
+           Image("bgRed")
                 .resizable()
                 .ignoresSafeArea()
             
-            
-            VStack {
-                HStack {
+            HStack {
+                VStack {
                     self.leftBar()
-                    
-                    Spacer()
                     
                     self.rightBar()
                 }
                 
-                HStack {
+                
+                VStack {
                     self.leftStatsUser()
                     
-                    Spacer()
-                    
                     self.rightRouletteWithCooldown()
-                        .offset(x: 10)
+                        
                 }
-                .padding(.top, 22)
+                
             
                 VStack(spacing: 32) {
                     NavigationLink {
-                        GamesChooseView()
+                        VibiraemIgruliy()
                     } label: {
                         Image("gmsl")
                             .overlay {
@@ -64,14 +60,7 @@ struct MainMenu: View {
                         
                     }
                     
-                    Button {
-                        withAnimation {
-                            self.showAchievments = true
-                        }
-                    } label: {
-                     Image("achi")
-                    }
-                    .buttonStyle(CustomStyle())
+                    
                     
                     NavigationLink {
                         SettingsView()
@@ -85,49 +74,16 @@ struct MainMenu: View {
                     }
 
                 }
-                .padding(.top, 50)
                 
-              Spacer()
+                
+              
             }
             .padding()
-            .blur(radius: self.showAchievments || !self.newPlayer || self.showTradeEnergy ? 3 : 0)
-            .disabled(self.showAchievments || !self.newPlayer || self.showTradeEnergy)
+            .blur(radius: self.showTradeEnergy ? 3 : 0)
+            .disabled(self.showTradeEnergy)
             
             Group {
-                if self.showAchievments {
-                    Image("rectAch")
-                        .overlay {
-                            VStack {
-                                HStack {
-                                    Spacer()
-                                    
-                                    Button {
-                                        withAnimation {
-                                            self.showAchievments = false
-                                        }
-                                    } label: {
-                                        Image("closeIc")
-                                    }
-                                    .buttonStyle(CustomStyle())
-                                }
-                                .padding(.trailing, 5)
-                                
-                                Text("Achievements")
-                                    .font(.custom(Font.lalezar, size: 25))
-                                    .foregroundStyle(.white)
-                                
-                                LazyVGrid(columns: columns) {
-                                    ForEach(self.userStorage.achievement.indices, id: \.self) { index in
-                                        Image(self.userStorage.achievement[index])
-                                        
-                                    }
-                                    
-                                }
-                                Spacer()
-                            }
-                        }
-                        .frame(width: 354, height: 443)
-                } else if showTradeEnergy {
+                 if showTradeEnergy {
                     Image("rectName")
                         .overlay {
                             VStack {
@@ -168,15 +124,12 @@ struct MainMenu: View {
                                         self.userStorage.energy += 1
                                     }
                                 } label: {
-                                    Image("settingsLeibl")
-                                        .resizable()
-                                        .frame(width: 91, height: 42)
-                                        .overlay {
+                              
                                             Text("Change")
                                                 .font(.custom(Font.lalezar
                                                               , size: 15))
                                                 .foregroundStyle(.white)
-                                        }
+                                        
                                 }
                                 .buttonStyle(CustomStyle())
                                 Spacer()
@@ -185,44 +138,11 @@ struct MainMenu: View {
                 }
             }
             .transition(.scale)
-            
-            Group {
-                if !newPlayer {
-                    RoundedRectangle(cornerRadius: 30)
-                        .fill(Color.init(hex: "#341947"))
-                        .overlay {
-                            VStack {
-                                Image("achievRe")
-                                
-                                Image("newUserAchievement")
-                                
-                                Button {
-                                    withAnimation {
-                                        self.newPlayer = true
-                                    }
-                                 
-                                } label: {
-                                    Image("settingsLeibl")
-                                        .resizable()
-                                        .frame(width: 91, height: 36)
-                                        .overlay {
-                                             Text("Receive")
-                                                .font(.custom(Font.lalezar, size: 15))
-                                                .foregroundStyle(.white)
-                                        }
-                                }
-                            }
-                        }
-                        .frame(width: 325, height: 382)
-                }
-            }
-            .transition(.scale)
+        
         }
         .navigationBarBackButtonHidden()
        
-        .onAppear() {
-            self.checkForAchievements()
-        }
+       
     }
     
     internal func leftBar() -> some View {
@@ -230,12 +150,7 @@ struct MainMenu: View {
             .overlay {
                 HStack {
                         HStack {
-                                ZStack {
-                                    Image("squarePurple")
-                                }
-                            .offset(x: -5
-                                    ,y: 2)
-                            .buttonStyle(CustomStyle())
+                             
                             
                             Spacer()
                             
@@ -332,7 +247,7 @@ struct MainMenu: View {
             Image("okoshk")
                 .overlay {
                     VStack {
-                        Image("torquz")
+                        Image("greenRk")
                             .resizable()
                             .frame(width: 70, height: 64)
 //                            .rotationEffect(.degrees(rotation))
@@ -361,11 +276,7 @@ struct MainMenu: View {
 
         }
                 .frame(width: 155, height: 177)
-                .onAppear() {
-//                    timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { _ in
-//                        rotation += 1
-//                    }
-                }
+                .offset(y: -10)
                 
         }
         .disabled(self.userStorage.roultteIsDisabled)
@@ -373,18 +284,7 @@ struct MainMenu: View {
       
     }
     
-    func checkForAchievements() {
-        UserDefaults.standard.setValue("newUserAchievement", forKey: "newUserAchievement")
-        
-        let achievements = [UserDefaults.standard.value(forKey: "newUserAchievement"), UserDefaults.standard.value(forKey: "firstPlayJB"), UserDefaults.standard.value(forKey: "cardWinAchievement"), UserDefaults.standard.value(forKey: "rouletteFreeAchievement")]
-        for achievement in achievements {
-            if achievement != nil {
-                if !self.userStorage.achievement.contains(achievement as! String) {
-                    self.userStorage.achievement.append(achievement as! String)
-                }
-            }
-        }
-    }
+    
 }
 
 
