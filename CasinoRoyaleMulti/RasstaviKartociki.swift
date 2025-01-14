@@ -76,6 +76,7 @@ struct RasstaviKartociki: View {
                 }
             }
         }
+        .mixAdapt()
     }
 }
 
